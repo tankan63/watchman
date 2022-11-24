@@ -3,7 +3,12 @@ THE WATCHMAN
 QUEIRES IPINFO API TO GET IP GEOLOCATION DATA
 '''
 
+
+
 from flask import Flask
+import coloredlogs
+import logging
+import json
 
 app = Flask(__name__)
 
