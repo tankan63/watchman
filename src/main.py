@@ -9,6 +9,10 @@ from flask import Flask, request
 import coloredlogs
 import logging
 import json
+import urllib.request
+
+
+IP_TOKEN = "4af01c2a1a2ade"
 
 app = Flask(__name__)
 
@@ -32,8 +36,21 @@ def get_user_list():
 
 @app.route("/users", methods=['POST'])
 def append_user():
-    r = request.get_json()
-    print(r)
-    return r, 204
+    # r = request.get_json(force=True)
+    # We got the remote address
+    r = request.remote_addr
+    
+    '''
+    TM'S Note: trying to query the ipinfo API from localhost will result in a bogon
+    '''
+
+    try:
+        ip_req = urllib.request.urlopen("https://ipinfo.io/" + r + "?token=" + IP_TOKEN)
+        ip_res = ip_req.read()
+        ip_data = json.loads(ip_res.decode('utf-8'))
+        print(ip_data)
+        return ip_data, 204
+    except:
+        return -100, 404
 
 
