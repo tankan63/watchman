@@ -12,6 +12,8 @@ import urllib.request
 
 
 IP_TOKEN = "4af01c2a1a2ade"
+Bogon_count = 0
+User_count = 1
 
 app = Flask(__name__)
 
@@ -46,9 +48,15 @@ def append_user():
     try:
         ip_req = urllib.request.urlopen("https://ipinfo.io/" + r + "?token=" + IP_TOKEN)
         ip_res = ip_req.read()
-        ip_data = json.loads(ip_res.decode('utf-8'))
-        print(ip_data)
-        return ip_data, 204
+        ip_result = ip_res.decode('utf-8')
+        ip_data = json.loads(ip_result)
+        out = ""
+        if ip_results['bogon'] == True:
+            out = f"{Bogon_count}-Bogon"
+        else:
+            out = ip_data
+        print(out)
+        return out, 204
     except:
         return -100, 404
 
