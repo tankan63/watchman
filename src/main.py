@@ -6,7 +6,6 @@ QUEIRES IPINFO API TO GET IP GEOLOCATION DATA
 
 
 from flask import Flask, request
-import coloredlogs
 import logging
 import json
 import urllib.request
