@@ -56,8 +56,9 @@ def append_user():
         else:
             out = ip_data
         print(out)
+        ustring = f"{User_count}-User"
+        users[ustring] = out
         return out, 204
     except:
         return -100, 404
-
 
