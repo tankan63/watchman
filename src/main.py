@@ -45,13 +45,13 @@ def append_user():
     TM'S Note: trying to query the ipinfo API from localhost will result in a bogon
     '''
 
+    out = ""
     try:
         ip_req = urllib.request.urlopen("https://ipinfo.io/" + r + "?token=" + IP_TOKEN)
         ip_res = ip_req.read()
         ip_result = ip_res.decode('utf-8')
         ip_data = json.loads(ip_result)
-        out = ""
-        if ip_results['bogon'] == True:
+        if ip_results['bogon'] == 'true':
             out = f"{Bogon_count}-Bogon"
         else:
             out = ip_data
@@ -60,5 +60,5 @@ def append_user():
         users[ustring] = out
         return out, 204
     except:
-        return -100, 404
+        return '', 404
 
